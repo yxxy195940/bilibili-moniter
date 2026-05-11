@@ -1,9 +1,10 @@
 name: 🚀 Deploy to Aliyun ECS
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:  # 允许在 GitHub 页面手动触发部署
+  # 暂时注销 push 触发器以暂停自动部署
+  # push:
+  #   branches: [ main ]
+  workflow_dispatch:  # 仅保留手动触发
 
 jobs:
   # ============================================================
