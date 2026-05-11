@@ -15,6 +15,7 @@ fi
 # 3. 激活虚拟环境并安装依赖
 echo "📦 Installing dependencies..."
 source .venv/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
 
 # 4. 重启服务
