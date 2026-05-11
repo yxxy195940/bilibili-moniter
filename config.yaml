@@ -1,0 +1,10 @@
+monitor:
+  uid: 1671203508          # 监控的UP主UID
+  video_count: 5           # 监控最新N个视频
+  check_interval: 60       # 轮询间隔（秒），1分钟
+  comment_pages: 2         # 每个视频每次拉取评论页数（每页20条）
+  max_video_age_days: 30   # 只监控近N天内发布的视频
+  request_delay: [1.5, 3]  # 每次API请求间的随机延迟范围（秒）
+  active_time:
+    start: "09:15"
+    end: "15:00"
