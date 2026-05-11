@@ -9,7 +9,15 @@ cd ~/bilibili-moniter
 # 2. 检查并创建虚拟环境
 if [ ! -d ".venv" ]; then
     echo "📦 Creating virtual environment..."
-    python3 -m venv .venv
+    PYTHON_CMD="python3"
+    for py in python3.12 python3.11 python3.10 python3.9 python3.8; do
+        if command -v $py &> /dev/null; then
+            PYTHON_CMD=$py
+            break
+        fi
+    done
+    echo "Using $PYTHON_CMD for venv..."
+    $PYTHON_CMD -m venv .venv
 fi
 
 # 3. 激活虚拟环境并安装依赖
