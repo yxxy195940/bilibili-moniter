@@ -54,7 +54,7 @@ jobs:
           script_stop: true  # SSH 命令失败时立即停止
           script: |
             # 如果服务器上还没有 bilibili-moniter 目录，先进行 Clone
-            if [ ! -d "~/bilibili-moniter" ]; then
+            if [ ! -d "$HOME/bilibili-moniter" ]; then
                 cd ~
                 git clone https://github.com/${{ github.repository }}.git bilibili-moniter
             fi
