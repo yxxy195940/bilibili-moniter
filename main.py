@@ -105,9 +105,14 @@ async def cmd_fetch(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
     # 1. 获取最新视频
     status_msg = await update.message.reply_text("🔄 正在获取最新视频...")
-    videos = await api.get_user_videos(uid, count=1)
-    if not videos:
-        await status_msg.edit_text("❌ 获取视频列表失败，请检查 Cookie 或稍后重试")
+    
+    try:
+        videos = await api.get_user_videos(uid, count=1)
+        if not videos:
+            await status_msg.edit_text("❌ 获取视频列表失败，请检查 Cookie 或稍后重试")
+            return
+    except Exception as e:
+        await status_msg.edit_text(f"❌ 请求 B 站 API 失败: {e}\n(可能是服务器 IP 被风控拦截)")
         return
 
     video = videos[0]
@@ -123,7 +128,11 @@ async def cmd_fetch(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     )
 
     # 2. 扫描UP主自己的留言
-    all_comments = await api.get_up_own_comments(uid, aid, max_pages=20)
+    try:
+        all_comments = await api.get_up_own_comments(uid, aid, max_pages=20)
+    except Exception as e:
+        await status_msg.edit_text(f"❌ 获取评论失败: {e}\n(可能是服务器 IP 被风控拦截)")
+        return
 
     if not all_comments:
         await status_msg.edit_text(
